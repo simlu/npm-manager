@@ -3,6 +3,14 @@
   "version": "0.0.0-development",
   "description": "CLI Wrapper around NPM",
   "main": "lib/index.js",
+  "preferGlobal": true,
+  "bin": {
+    "npm-manager": "./lib/index.js",
+    "nm": "./lib/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "npm run clean && npm run gardener && npm run test-simple",
     "clean": "rm -rf lib",
