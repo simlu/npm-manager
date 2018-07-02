@@ -12,6 +12,22 @@
 
 CLI Wrapper around NPM
 
+## Getting Started
+
+    # npm i -g npm-manager
+
 ## Commands
 
-...
+Can run all commands with `npm-manager ...` or `nm` (alias)
+
+### nm persist
+
+Persist dependencies of current project into `offline.tar.gz`
+
+### nm install
+
+Install dependencies from `offline.tar.gz`. Will throw an error if not in sync.
+
+## How it works
+
+Uses npm cache and saves / restores it into / from archive. Uses shell scripts, so unix is required.
