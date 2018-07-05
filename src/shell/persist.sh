@@ -25,7 +25,7 @@ npm cache verify
 echo "-------------------"
 echo "Populating Cache"
 echo "-------------------"
-npm i ${PACKAGE} --no-safe
+npm i ${PACKAGE} --no-save
 npm cache verify
 
 echo "-------------------"
