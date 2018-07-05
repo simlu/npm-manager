@@ -15,6 +15,8 @@ describe("Testing `persist`", () => {
   });
 
   it("Testing Basic", () => {
-    expect(persist.handler()).to.equal(null);
+    expect(persist.handler({
+      pkg: undefined
+    })).to.equal(null);
   });
 });

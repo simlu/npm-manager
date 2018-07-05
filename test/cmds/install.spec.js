@@ -15,6 +15,8 @@ describe("Testing `install`", () => {
   });
 
   it("Testing Basic", () => {
-    expect(install.handler()).to.equal(null);
+    expect(install.handler({
+      pkg: undefined
+    })).to.equal(null);
   });
 });

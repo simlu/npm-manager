@@ -4,11 +4,13 @@ set -e
 echo "-------------------"
 echo "Creating Cache Folder"
 echo "-------------------"
-PACKAGE=""
+PACKAGE="{{PACKAGE}}"
 if [ -z "$PACKAGE" ]; then
    FILE="package-json"
+   FLAG=""
 else
-   FILE=PACKAGE
+   FILE=${PACKAGE}
+   FLAG="-g"
 fi
 CWD=${PWD}
 DIR=$(mktemp -d -t)
@@ -24,8 +26,10 @@ npm cache verify
 echo "-------------------"
 echo "Cached Install"
 echo "-------------------"
-rm -rf node_modules
-npm i ${PACKAGE} --offline
+if [ -z "$FLAG" ]; then
+  rm -rf node_modules
+fi
+npm i ${FLAG} ${PACKAGE} --offline --no-save
 npm cache verify
 
 echo "-------------------"

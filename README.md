@@ -20,13 +20,17 @@ CLI Wrapper around NPM
 
 Can run all commands with `npm-manager ...` or `nm` (alias)
 
-### nm persist
+### nm persist [pkg]
 
-Persist dependencies of current project into `offline.tar.gz`
+Persist dependencies of current project into `offline/package-json.tar.gz`
 
-### nm install
+Can persist custom dependencies e.g. with `nm persist npm@6.1.0` to `offline/npm@6.1.0.tar.gz`.
 
-Install dependencies from `offline.tar.gz`. Will throw an error if not in sync.
+### nm install [pkg]
+
+Install dependencies from `offline/package-json.tar.gz`. Will throw an error if not in sync.
+
+Can install global dependencies e.g. with `nm install npm@6.1.0` from `offline/npm@6.1.0.tar.gz`.
 
 ## How it works
 

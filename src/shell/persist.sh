@@ -4,11 +4,11 @@ set -e
 echo "-------------------"
 echo "Creating Cache Folder"
 echo "-------------------"
-PACKAGE=""
+PACKAGE="{{PACKAGE}}"
 if [ -z "$PACKAGE" ]; then
    FILE="package-json"
 else
-   FILE=PACKAGE
+   FILE=${PACKAGE}
 fi
 CWD=${PWD}
 DIR=$(mktemp -d -t)
@@ -18,7 +18,7 @@ npm cache verify
 echo "-------------------"
 echo "Clearing Local Data"
 echo "-------------------"
-rm -rf offline.tar.gz
+rm -rf "offline/$FILE.tar.gz"
 rm -rf node_modules
 npm cache verify
 
@@ -32,7 +32,7 @@ echo "-------------------"
 echo "Testing Cached Install"
 echo "-------------------"
 rm -rf node_modules
-npm i ${PACKAGE} --offline
+npm i ${PACKAGE} --offline --no-save
 npm cache verify
 
 echo "-------------------"
@@ -40,6 +40,13 @@ echo "Zipping Cache"
 echo "-------------------"
 mkdir -p offline
 (cd ${DIR} && tar -czf "$CWD/offline/$FILE.tar.gz" "_cacache")
+npm cache verify
+
+echo "-------------------"
+echo "Restoring Modules"
+echo "-------------------"
+rm -rf node_modules
+npm ci
 npm cache verify
 
 echo "-------------------"
