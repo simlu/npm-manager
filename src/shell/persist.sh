@@ -31,7 +31,8 @@ npm cache verify
 echo "-------------------"
 echo "Zipping Cache"
 echo "-------------------"
-(cd ${DIR} && tar -czf "$CWD/offline.tar.gz" "_cacache")
+mkdir -p offline
+(cd ${DIR} && tar -czf "$CWD/offline/offline.tar.gz" "_cacache")
 npm cache verify
 
 echo "-------------------"

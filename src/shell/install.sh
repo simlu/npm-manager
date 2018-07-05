@@ -11,7 +11,7 @@ npm cache verify
 echo "-------------------"
 echo "Populating Cache"
 echo "-------------------"
-tar xzf offline.tar.gz -C ${DIR}
+tar xzf offline/offline.tar.gz -C ${DIR}
 npm cache verify
 
 echo "-------------------"
