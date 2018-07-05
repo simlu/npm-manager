@@ -1,8 +1,15 @@
 #!/bin/bash
+set -e
 
 echo "-------------------"
 echo "Creating Cache Folder"
 echo "-------------------"
+PACKAGE=""
+if [ -z "$PACKAGE" ]; then
+   FILE="package-json"
+else
+   FILE=PACKAGE
+fi
 CWD=${PWD}
 DIR=$(mktemp -d -t)
 export npm_config_cache="$DIR"
@@ -18,21 +25,21 @@ npm cache verify
 echo "-------------------"
 echo "Populating Cache"
 echo "-------------------"
-npm i --no-safe
+npm i ${PACKAGE} --no-safe
 npm cache verify
 
 echo "-------------------"
 echo "Testing Cached Install"
 echo "-------------------"
 rm -rf node_modules
-npm i --offline
+npm i ${PACKAGE} --offline
 npm cache verify
 
 echo "-------------------"
 echo "Zipping Cache"
 echo "-------------------"
 mkdir -p offline
-(cd ${DIR} && tar -czf "$CWD/offline/offline.tar.gz" "_cacache")
+(cd ${DIR} && tar -czf "$CWD/offline/$FILE.tar.gz" "_cacache")
 npm cache verify
 
 echo "-------------------"
