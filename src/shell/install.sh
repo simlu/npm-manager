@@ -1,27 +1,38 @@
 #!/bin/bash
+set -e
 
 echo "-------------------"
 echo "Creating Cache Folder"
 echo "-------------------"
+PACKAGE="{{PACKAGE}}"
+if [ -z "$PACKAGE" ]; then
+   FILE="package-json"
+   FLAG=""
+else
+   FILE=${PACKAGE}
+   FLAG="-g"
+fi
 CWD=${PWD}
-DIR=$(mktemp -d -t)
-export npm_config_cache="$DIR"
+NPM_CACHE_DIR=$(mktemp -d -t)
+export npm_config_cache="$NPM_CACHE_DIR"
 npm cache verify
 
 echo "-------------------"
 echo "Populating Cache"
 echo "-------------------"
-tar xzf offline.tar.gz -C ${DIR}
+tar xzf "offline/$FILE.tar.gz" -C ${NPM_CACHE_DIR}
 npm cache verify
 
 echo "-------------------"
 echo "Cached Install"
 echo "-------------------"
-rm -rf node_modules
-npm i --offline
+if [ -z "$FLAG" ]; then
+  rm -rf node_modules
+fi
+npm i ${FLAG} ${PACKAGE} --offline --no-save
 npm cache verify
 
 echo "-------------------"
 echo "Cleanup"
 echo "-------------------"
-rm -rf "$DIR"
+rm -rf "$NPM_CACHE_DIR"
