@@ -1,55 +1,42 @@
 #!/bin/bash
 set -e
 
-echo "-------------------"
-echo "Creating Cache Folder"
-echo "-------------------"
+CWD=${PWD}
 PACKAGE="{{PACKAGE}}"
 if [ -z "$PACKAGE" ]; then
    FILE="package-json"
 else
    FILE=${PACKAGE}
 fi
-CWD=${PWD}
-DIR=$(mktemp -d -t)
-export npm_config_cache="$DIR"
-npm cache verify
 
 echo "-------------------"
-echo "Clearing Local Data"
+echo "Init Temporary Npm Cache"
 echo "-------------------"
-rm -rf "offline/$FILE.tar.gz"
-rm -rf node_modules
+NPM_INSTALL_DIR=$(mktemp -d -t)
+if [ -z "$PACKAGE" ]; then
+  cp "$CWD/package.json" "$NPM_INSTALL_DIR/."
+  cp "$CWD/package-lock.json" "$NPM_INSTALL_DIR/."
+fi;
+NPM_CACHE_DIR=$(mktemp -d -t)
+export npm_config_cache="$NPM_CACHE_DIR"
 npm cache verify
 
 echo "-------------------"
 echo "Populating Cache"
 echo "-------------------"
-npm i ${PACKAGE} --no-save
-npm cache verify
-
-echo "-------------------"
-echo "Testing Cached Install"
-echo "-------------------"
-rm -rf node_modules
-npm i ${PACKAGE} --offline --no-save
+(cd ${NPM_INSTALL_DIR} && npm i ${PACKAGE} --no-save)
 npm cache verify
 
 echo "-------------------"
 echo "Zipping Cache"
 echo "-------------------"
-mkdir -p offline
-(cd ${DIR} && tar -czf "$CWD/offline/$FILE.tar.gz" "_cacache")
-npm cache verify
-
-echo "-------------------"
-echo "Restoring Modules"
-echo "-------------------"
-rm -rf node_modules
-npm ci
+rm -rf "$CWD/offline/$FILE.tar.gz"
+mkdir -p "$CWD/offline"
+(cd ${NPM_CACHE_DIR} && tar -czf "$CWD/offline/$FILE.tar.gz" "_cacache")
 npm cache verify
 
 echo "-------------------"
 echo "Cleanup"
 echo "-------------------"
-rm -rf "$DIR"
+rm -rf "$NPM_INSTALL_DIR"
+rm -rf "$NPM_CACHE_DIR"

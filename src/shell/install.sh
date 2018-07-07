@@ -13,14 +13,14 @@ else
    FLAG="-g"
 fi
 CWD=${PWD}
-DIR=$(mktemp -d -t)
-export npm_config_cache="$DIR"
+NPM_CACHE_DIR=$(mktemp -d -t)
+export npm_config_cache="$NPM_CACHE_DIR"
 npm cache verify
 
 echo "-------------------"
 echo "Populating Cache"
 echo "-------------------"
-tar xzf "offline/$FILE.tar.gz" -C ${DIR}
+tar xzf "offline/$FILE.tar.gz" -C ${NPM_CACHE_DIR}
 npm cache verify
 
 echo "-------------------"
@@ -35,4 +35,4 @@ npm cache verify
 echo "-------------------"
 echo "Cleanup"
 echo "-------------------"
-rm -rf "$DIR"
+rm -rf "$NPM_CACHE_DIR"
