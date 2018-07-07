@@ -5,8 +5,10 @@ CWD=${PWD}
 PACKAGE="{{PACKAGE}}"
 if [ -z "$PACKAGE" ]; then
    FILE="package-json"
+   CHECKSUM=`md5sum $CWD/package-lock.json | awk '{ print $1 }'`
 else
    FILE=${PACKAGE}
+   CHECKSUM=`md5sum ${PACKAGE}`
 fi
 
 echo "-------------------"
@@ -24,6 +26,7 @@ npm cache verify
 echo "-------------------"
 echo "Populating Cache"
 echo "-------------------"
+touch "$NPM_CACHE_DIR/$CHECKSUM"
 (cd ${NPM_INSTALL_DIR} && npm i ${PACKAGE} --no-save)
 npm cache verify
 
@@ -32,7 +35,7 @@ echo "Zipping Cache"
 echo "-------------------"
 rm -rf "$CWD/offline/$FILE.tar.gz"
 mkdir -p "$CWD/offline"
-(cd ${NPM_CACHE_DIR} && tar -czf "$CWD/offline/$FILE.tar.gz" "_cacache")
+(cd ${NPM_CACHE_DIR} && tar -czf "$CWD/offline/$FILE.tar.gz" "_cacache" "$CHECKSUM")
 npm cache verify
 
 echo "-------------------"
