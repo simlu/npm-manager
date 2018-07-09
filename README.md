@@ -32,6 +32,10 @@ Install dependencies from `offline/package-json.tar.gz`. Will throw an error if 
 
 Can install global dependencies e.g. with `nm install npm@6.1.0` from `offline/npm@6.1.0.tar.gz`.
 
+### nm verify [pkg]
+
+Verify that dependency offline cache is valid.
+
 ## How it works
 
 Uses npm cache and saves / restores it into / from archive. Uses shell scripts, so unix is required.
