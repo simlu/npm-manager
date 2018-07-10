@@ -8,7 +8,7 @@ if [ -z "$PACKAGE" ]; then
    CHECKSUM=`md5sum $CWD/package-lock.json | awk '{ print $1 }'`
 else
    FILE=${PACKAGE}
-   CHECKSUM=`md5sum ${PACKAGE}`
+   CHECKSUM=`echo -n ${PACKAGE} | md5sum | awk '{ print $1 }'`
 fi
 
 echo "-------------------"
