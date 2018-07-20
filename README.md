@@ -20,6 +20,13 @@ CLI Wrapper around NPM
 
 Can run all commands with `npm-manager ...` or `nm` (alias)
 
+### nm update
+
+Update dependencies in `package.json` in current directory. 
+Requires [ncu](https://www.npmjs.com/package/npm-check-updates).
+
+This also force re-creates the package.lock.json and (re-)adds it to git.
+
 ### nm persist [pkg]
 
 Persist dependencies of current project into `offline/package-json.tar.gz`
