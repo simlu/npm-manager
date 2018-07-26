@@ -7,17 +7,14 @@ notifications:
 before_install:
   - npm install -g npm
   - npm install -g npm-check-updates
-  - npm install -g greenkeeper-lockfile@1
 install:
   - npm install
 node_js:
   - '9'
   - '8'
   - '8.10'
-before_script: greenkeeper-lockfile-update
 script:
   - npm test
-after_script: greenkeeper-lockfile-upload
 after_success:
   - npm run coveralls
   - npm run semantic-release
