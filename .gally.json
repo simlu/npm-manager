@@ -20,7 +20,7 @@
     "feat/*": {
       "upstream": "dev"
     },
-    "greenkeeper/*": {
+    "dependabot/*": {
       "upstream": "dev"
     }
   },
