@@ -6,6 +6,7 @@ notifications:
   email: false
 before_install:
   - npm install -g npm
+  - npm install -g npm-check-updates
 install:
   - npm install
 node_js:
