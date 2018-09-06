@@ -32,11 +32,15 @@ Persist dependencies of current project into `offline/package-json.tar.gz`
 
 Can persist custom dependencies e.g. with `nm persist npm@6.1.0` to `offline/npm@6.1.0.tar.gz`.
 
-### nm install [pkg]
+### nm install [pkg] [args]
 
 Install dependencies from `offline/package-json.tar.gz`. Will throw an error if not in sync.
 
 Can install global dependencies e.g. with `nm install npm@6.1.0` from `offline/npm@6.1.0.tar.gz`.
+
+Can pass nested arguments with `--args="${ARGS}"`. Example:
+
+    $ nm install npm@6.1.0 --args="--arg1 --arg2"
 
 ### nm verify [pkg]
 
