@@ -5,6 +5,7 @@ echo "-------------------"
 echo "Creating Cache Folder"
 echo "-------------------"
 PACKAGE="{{PACKAGE}}"
+ARGS="{{ARGS}}"
 if [ -z "$PACKAGE" ]; then
    FILE="package-json"
    FLAG=""
@@ -29,7 +30,7 @@ echo "-------------------"
 if [ -z "$FLAG" ]; then
   rm -rf node_modules
 fi
-npm i ${FLAG} ${PACKAGE} --offline --no-save
+npm i ${FLAG} ${PACKAGE} --offline --no-save ${ARGS}
 npm cache verify
 
 echo "-------------------"
