@@ -6,8 +6,8 @@
 [![Dependencies](https://david-dm.org/simlu/npm-manager/status.svg)](https://david-dm.org/simlu/npm-manager)
 [![NPM](https://img.shields.io/npm/v/npm-manager.svg)](https://www.npmjs.com/package/npm-manager)
 [![Downloads](https://img.shields.io/npm/dt/npm-manager.svg)](https://www.npmjs.com/package/npm-manager)
-[![Semantic-Release](https://github.com/simlu/js-gardener/blob/master/assets/icons/semver.svg)](https://github.com/semantic-release/semantic-release)
-[![Gardener](https://github.com/simlu/js-gardener/blob/master/assets/badge.svg)](https://github.com/simlu/js-gardener)
+[![Semantic-Release](https://github.com/blackflux/js-gardener/blob/master/assets/icons/semver.svg)](https://github.com/semantic-release/semantic-release)
+[![Gardener](https://github.com/blackflux/js-gardener/blob/master/assets/badge.svg)](https://github.com/blackflux/js-gardener)
 
 CLI Wrapper around NPM
 
